@@ -34,7 +34,7 @@ def get_users():
 
 """:return user by id"""
 
-@app.route('/api/v1/users/query/<int:uid>')
+@app.route('/api/v1/users/<int:uid>')
 def get_user_by_id(uid):
     ret = {}
     for user in users :
