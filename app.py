@@ -1,10 +1,10 @@
 from flask import Flask
-
-from flask import jsonify
+from flask import jsonify, Response
+import  json
 
 app = Flask(__name__)
 
-# dummy user data @todo: read from file
+# todo read from file
 users = [
     {
         "name": "root",
@@ -22,6 +22,19 @@ users = [
     }
 ]
 
+# todo read from file
+groups = [
+    {
+        "name": "_analyticsusers",
+        "gid": 250,
+        "members":["_analyticsd","_networkd","_timed"]
+    },
+    {
+        "name": "docker",
+        "gid": 1002,
+        "members": []
+    }
+]
 
 
 """:returns list[users]"""
@@ -38,8 +51,29 @@ def get_users():
 def get_user_by_id(uid):
     ret = {}
     for user in users :
-        if user['uid'] == uid:
+        if users['uid'] == uid:
             ret =  user
+    return jsonify(ret)
+
+
+""":returns list[groups]"""
+
+@app.route('/api/v1/groups',methods=['GET'])
+def get_groups():
+    return jsonify({
+        'groups': groups
+    })
+
+
+
+""":return group by gid"""
+
+@app.route('/api/v1/groups/<int:gid>')
+def get_group_by_id(gid):
+    ret = {}
+    for group in groups :
+        if group['gid'] == gid:
+            ret =  group
     return jsonify(ret)
 
 
