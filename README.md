@@ -14,15 +14,24 @@ Groups:
  
  
 # prerequisite tools 
-$ python -V   # Project built on Python 3.6.7 but Python 3.4.x should work
+$ python -V   # Project built on Python 3.6.7 or > Python 3.4.x 
+
 $ pip3 install virtualenv #  pip3 install --upgrade pip
+
 $ virtualenv venv
+
 $ source venv/bin/activate
  
 # running instructions 
 cd credential-service
+
 pip3 install -r requirements.txt
+
 export FLASK_RUN_PORT=9000 # change port 
+
 flask app.py 
 
   
+#debugging instructions
+
+python app.py # debugger started on port 8080
