@@ -32,11 +32,11 @@ export FLASK_RUN_PORT=9000 # change port
 flask app.py 
 
   
-#debugging instructions
+# debugging instructions
 
 python app.py # debugger started on port 8080
 
 
 # Todo: export postman calls/provide curl calls to test/ use click to make calls
-# Todo: provide unittests and possible refactor code
-# provide setup.py file
+# Todo: provide unittests and possible refactor code (using blueprints)
+# Todo: provide setup.py file
