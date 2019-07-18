@@ -81,10 +81,33 @@ Groups Map {guid, {group_element}}: Storage for supporting O(1) lookup by guid
             }
   OR
   ERROR Response(404): {
-            error: "group with id 1221182 does not exist"
+                        error: "group with id 1221182 does not exist"
+                       }
+  
+  - GET all groups for a user (default part of everyone) /users/<uid>/groups else 404 if user does not exist
+  Example: http://127.0.0.1:8080/api/v1/users/0/group
+  Response: {
+                gid: 0,
+                members: [
+                "wheel",
+                "daemon",
+                "kmem",
+                "sys",
+                "tty",
+                "operator",
+                "procview",
+                "procmod",
+                "staff",
+                "certusers",
+                "admin",
+                "everyone"
+                ],
+                name: "root"
             }
   
-
+  ERROR Response:{
+                        error: "user with id 1221182 does not exist"
+                 }
 
 # prerequisite tools 
 $ python -V   # Project built on Python 3.6.7 or > Python 3.4.x 
@@ -102,9 +125,9 @@ pip3 install -r requirements.txt
 
 python app.py /path/to/passwd /path/to/group # started on port 8080
 
-# Todo: GET groups by specied query on endpoint /users/query/?query_param=<query>
-  
-# Todo: provide unittests and possible refactor code (using blueprints)
+# Todo: 
+  - GET groups by specied query on endpoint /users/query/?query_param=<query>
+  - provide unittests and possible refactor code (using blueprints)
 
 # Watch file 
 Create a background process running
@@ -124,7 +147,7 @@ Possible Fix:
 - Use a shared_map so other process can update
 
 
-
-
+Other Aspects:
+- Some systems have negative user id and guid  which is not handled in the current code (url path rules would need to be defined for matching with - in the path) 
 
 
