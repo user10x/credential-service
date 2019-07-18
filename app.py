@@ -93,12 +93,14 @@ def get_users_with_query():
 if __name__ == '__main__':
     users_file='/etc/passwd'
     group_file = '/etc/group'
-    if len(sys.argv) == 2:
-        file_1 = sys.argv[0]
-        file_2 = sys.argv[1]
+    
+    if len(sys.argv) == 3:
+        file_1 = sys.argv[1]
+        file_2 = sys.argv[2]
     else:
         print('using the default files ',(users_file, group_file))
+        
     users= read_users_data(users_file)
     groups= read_group_data(group_file)
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(port=8080)
 
