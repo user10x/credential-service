@@ -9,7 +9,7 @@ Users:
 
 Groups:
   - GET all groups /groups
-  - GET all groups for user by id on endpoint /groups/<uid>/groups
+  - GET all groups for user by id on endpoint /groups/<uid>/groups or 404
   - GET groups by specied query on endpoint /users/query/?query_param=<query>
  
  
@@ -27,14 +27,7 @@ cd credential-service
 
 pip3 install -r requirements.txt
 
-export FLASK_RUN_PORT=9000 # change port 
-
-flask app.py 
-
-  
-# debugging instructions
-
-python app.py # debugger started on port 8080
+python app.py /path/to/passwd /path/to/group # started on port 8080
 
 
 # Todo: export postman calls/provide curl calls to test/ use click to make calls
