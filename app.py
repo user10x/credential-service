@@ -7,11 +7,12 @@ from FileOperations import read_group_data
 
 app = Flask(__name__)
 
-users = {}
+# for fast lookup by id
+users = {} 
 groups = {}
 
-
 """:returns list[users]"""
+
 @app.route('/api/v1/users',methods=['GET'])
 def get_users():
     return jsonify({
@@ -19,6 +20,7 @@ def get_users():
     })
 
 """:return user by id"""
+
 @app.route('/api/v1/users/<int:uid>')
 def get_user_by_id(uid):
     ret = None
@@ -34,6 +36,7 @@ def get_user_by_id(uid):
 
 
 """:returns list[groups]"""
+
 @app.route('/api/v1/groups',methods=['GET'])
 def get_groups():
     return jsonify({
@@ -56,6 +59,7 @@ def get_group_by_id(gid):
     return jsonify(ret)
 
 """ validates all the query params passed by the user"""
+
 def validate_user_object(request_args):
     ret = []
     total_query_length = len(request_args)
@@ -75,7 +79,8 @@ def validate_user_object(request_args):
     return ret
 
 
-"""GET /users/query[?name=<nq>][&uid=<uq>][&gid=<gq>][&comment=<cq>][&home=<hq>][&shell=<sq>]"""
+"""returns with query[?name=<nq>][&uid=<uq>][&gid=<gq>][&comment=<cq>][&home=<hq>][&shell=<sq>]"""
+
 @app.route('/api/v1/users/query',methods=['GET'])
 def get_users_with_query():
     request_args = request.args
@@ -87,6 +92,39 @@ def get_users_with_query():
             ret = {}
     else:
         ret = validate_user_object(request_args)
+
+    return jsonify(ret)
+
+
+"""":returns user with all the groups """
+
+@app.route('/api/v1/users/<int:uid>/group')
+def get_groups_for_user(uid):
+    if uid not in users:
+        invaliUserObjectErrorMsg = {
+            'error': 'user with ' + str(uid) + ' does not exist'
+        }
+        return Response(json.dumps(invaliUserObjectErrorMsg), status=404, mimetype='application/json')
+
+    user_element = users[uid]
+    user_name = user_element['name']
+
+    members = []
+    for group in groups.values():
+        for ele in group['members']:
+            if user_name == ele:
+                members.append(group['name'])
+
+    gid = user_element['gid']
+
+    # on unix mac all the groups are part of this (id username), this may vary on other system
+    members.append('everyone')
+
+    ret = {
+        'name': user_name,
+        'gid': gid,
+        'members': members
+    }
 
     return jsonify(ret)
 
