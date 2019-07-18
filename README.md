@@ -55,7 +55,7 @@ Users:
 
 Groups:
 
-  # GET all groups /groups
+  - GET all groups /groups
   Example: http://127.0.0.1:8080/api/v1/groups
   Response: [
             {
@@ -68,7 +68,7 @@ Groups:
             }
     ]
     
-  # GET all groups for user by id on endpoint /groups/<uid>/groups or 404
+  - GET all groups for user by id on endpoint /groups/<uid>/groups or 404
   Example:  http://127.0.0.1:8080/api/v1/groups/0
   Response: {
             gid: 0,
