@@ -20,9 +20,15 @@ def get_users():
 """:return user by id"""
 @app.route('/api/v1/users/<int:uid>')
 def get_user_by_id(uid):
-    ret = {}
+    ret = None
     if uid in users:
         ret = users[uid]
+    else:
+        invaliUserObjectErrorMsg = {
+            'error': 'user with ' + str(uid) + ' does not exist'
+        }
+        return Response(json.dumps(invaliUserObjectErrorMsg), status=404, mimetype='application/json')
+    
     return jsonify(ret)
 
 
@@ -35,11 +41,17 @@ def get_groups():
 
 
 """:return group by gid"""
+
 @app.route('/api/v1/groups/<int:gid>')
 def get_group_by_id(gid):
-    ret = {}
+    ret = None
     if gid in groups:
-        ret =  groups[gid]
+        ret = groups[gid]
+    else:
+        invalidGroupObjectErrorMsg = {
+            'error': 'group with id ' + str(gid) + ' does not exist'
+        }
+        return Response(json.dumps(invalidGroupObjectErrorMsg), status=404, mimetype='application/json')
     return jsonify(ret)
 
 """ validates all the query params passed by the user"""
@@ -78,7 +90,14 @@ def get_users_with_query():
     return jsonify(ret)
 
 if __name__ == '__main__':
-    users= read_users_data('/etc/passwd')
-    groups= read_group_data('/etc/group')
+    users_file='/etc/passwd'
+    group_file = '/etc/group'
+    if len(sys.argv) == 2:
+        file_1 = sys.argv[0]
+        file_2 = sys.argv[1]
+    else:
+        print('using the default files ',(users_file, group_file))
+    users= read_users_data(users_file)
+    groups= read_group_data(group_file)
     app.run(debug=True, host='0.0.0.0', port=8080)
 
