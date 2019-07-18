@@ -15,9 +15,7 @@ groups = {}
 
 @app.route('/api/v1/users',methods=['GET'])
 def get_users():
-    return jsonify({
-        'users': users
-    })
+    return jsonify(list(users.values()))
 
 """:return user by id"""
 
@@ -39,10 +37,7 @@ def get_user_by_id(uid):
 
 @app.route('/api/v1/groups',methods=['GET'])
 def get_groups():
-    return jsonify({
-        'groups': groups
-    })
-
+    return jsonify( list(groups.values()))
 
 """:return group by gid"""
 
@@ -66,7 +61,7 @@ def validate_user_object(request_args):
     for user_id,values_map in users.items():
         result = []
         for requested_item in request_args.items():
-            # check if the users values have matching values
+             # if len(1) then O(1) and lookup by id
             if str(values_map[requested_item[0]]) != requested_item[1]:
                 break
             else:
