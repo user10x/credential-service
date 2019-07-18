@@ -116,7 +116,7 @@ Call function watch file  every x seconds
 Start with 0.0 modified time for both files and compare if the file got updated with access time
 create a lock for the thread to access these two variables 
 
-Issue: update the map
+Issue:
 - issue the maps(users and groups) is not getting updated as its a global variable and thread is not able to update it in its scope. 
 Possible Fix: 
 - Use a the muliprocessing Queue class, so threads can access the data and write it back
