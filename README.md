@@ -118,6 +118,7 @@ create a lock for the thread to access these two variables
 
 Issue:
 - issue the maps(users and groups) is not getting updated as its a global variable and thread is not able to update it in its scope. 
+
 Possible Fix: 
 - Use a the muliprocessing Queue class, so threads can access the data and write it back
 - Use a shared_map so other process can update
