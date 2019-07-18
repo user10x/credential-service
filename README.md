@@ -4,7 +4,7 @@
 
 BASE_URL = http://127.0.0.1:8080/api/v1
 
-Users:
+Users Map {uid, {user_element}}:  Storage for supporting O(1) lookup by uid
   - GET all users by endpoint  /users
     Example: http://127.0.0.1:8080/api/v1/users
     Response:[
@@ -53,7 +53,7 @@ Users:
                               error: "user with 2 does not exist"
                            }
 
-Groups:
+Groups Map {guid, {group_element}}: Storage for supporting O(1) lookup by guid
 
   - GET all groups /groups
   Example: http://127.0.0.1:8080/api/v1/groups
