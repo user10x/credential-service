@@ -1,6 +1,8 @@
 # credential-service
-
+# 
 # read from the passwd and groups file data
+
+# watch part expained at the end and branch add-watch-feature(not merged)
 
 BASE_URL = http://127.0.0.1:8080/api/v1
 
@@ -104,4 +106,24 @@ python app.py /path/to/passwd /path/to/group # started on port 8080
   
 # Todo: provide unittests and possible refactor code (using blueprints)
 
-# Todo: provide setup.py file
+# Watch file 
+Create a background process running
+
+main block : backProc = Process(target=watch_file, args=(lock, file_1,file_2,sleep_timer))
+watch_file function
+
+Call function watch file  every x seconds 
+Start with 0.0 modified time for both files and compare if the file got updated with access time
+create a lock for the thread to access these two variables 
+
+Issue: update the map
+- issue the maps(users and groups) is not getting updated as its a global variable and thread is not able to update it in its scope. 
+Possible Fix: 
+- Use a the muliprocessing Queue class, so threads can access the data and write it back
+- Use a shared_map so other process can update
+
+
+
+
+
+
