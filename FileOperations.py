@@ -23,7 +23,7 @@ def read_group_data(groups_file):
             try:
                 if not str(line).startswith('#') or len(line) == 0:
                     group = dict()
-                    line  = line.split(':')
+                    line  = line.strip('\n').split(':')
                     group['name'],group['password'],group['gid']= line[0], line[1],int(line[2])
                     members = []
                     if len(line[3])>1:
