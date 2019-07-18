@@ -1,8 +1,6 @@
 # credential-service
-# 
-# read from the passwd and groups file data
-
-# watch part expained at the end and branch add-watch-feature(not merged)
+database: read from the passwd and groups file data
+support the api's below
 
 BASE_URL = http://127.0.0.1:8080/api/v1
 
@@ -129,7 +127,8 @@ python app.py /path/to/passwd /path/to/group # started on port 8080
   - GET groups by specied query on endpoint /users/query/?query_param=<query>
   - provide unittests and possible refactor code (using blueprints)
 
-# Watch file 
+# watch and update data in the branch add-watch-feature(not merged)
+
 Create a background process running
 
 main block : backProc = Process(target=watch_file, args=(lock, file_1,file_2,sleep_timer))
